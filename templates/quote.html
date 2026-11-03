@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %}Get a free quote | {{ BIZ.name }}{% endblock %}
+{% block extra_css %}
+.pagehead{padding:3.5rem 0 1rem}
+.layout{display:grid;grid-template-columns:1.4fr .8fr;gap:2.5rem;align-items:start}
+@media(max-width:900px){.layout{grid-template-columns:1fr}}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:2rem}
+.panel fieldset{border:0;padding:0;margin:0 0 1.4rem}
+.panel legend{font:700 1.25rem var(--head);margin-bottom:.8rem;padding:0}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:0 1rem}
+@media(max-width:600px){.row{grid-template-columns:1fr}}
+.panel p{margin:0 0 1rem;max-width:none}
+.chk{display:flex;align-items:center;gap:.6rem;margin-bottom:.6rem}
+.chk input{width:1.15rem;height:1.15rem}
+.chk label{margin:0;font-weight:500}
+.side{background:var(--aqua);border-radius:22px;padding:1.8rem}
+.side h3{margin-top:0}
+.side ul{padding-left:1.2rem;margin:0 0 1rem}
+{% endblock %}
+{% block content %}
+<section class="pagehead">
+  <div class="wrap">
+    <h1 style="font-size:clamp(2.2rem,5vw,3.4rem)">Get your free quote</h1>
+    <p class="lead">Tell us about your home and what you need. We will contact you by phone or email with a clear price.</p>
+  </div>
+</section>
+<section style="padding-top:1rem">
+  <div class="wrap layout">
+    <form method="post" class="panel" novalidate>
+      {% csrf_token %}
+      <div class="hp" aria-hidden="true">{{ form.website }}</div>
+      {{ form.non_field_errors }}
+      <fieldset><legend>About you</legend>
+        <div class="row">{% include "_field.html" with f=form.name %}{% include "_field.html" with f=form.phone %}</div>
+        {% include "_field.html" with f=form.email %}
+      </fieldset>
+      <fieldset><legend>Your home</legend>
+        <div class="row">{% include "_field.html" with f=form.address %}{% include "_field.html" with f=form.zip_code %}</div>
+        <div class="row">{% include "_field.html" with f=form.bedrooms %}{% include "_field.html" with f=form.bathrooms %}</div>
+        {% include "_field.html" with f=form.has_pets %}
+      </fieldset>
+      <fieldset><legend>The service</legend>
+        <div class="row">{% include "_field.html" with f=form.service %}{% include "_field.html" with f=form.frequency %}</div>
+        <div class="row">{% include "_field.html" with f=form.preferred_date %}{% include "_field.html" with f=form.preferred_time %}</div>
+      </fieldset>
+      <fieldset><legend>Extras</legend>
+        {% include "_field.html" with f=form.inside_oven %}
+        {% include "_field.html" with f=form.inside_fridge %}
+        {% include "_field.html" with f=form.interior_windows %}
+        {% include "_field.html" with f=form.laundry %}
+      </fieldset>
+      {% include "_field.html" with f=form.message %}
+      <button class="btn" type="submit">Send my request</button>
+    </form>
+    <aside class="side">
+      <h3>What happens next</h3>
+      <p>We read your request, work out the time your home needs, and get back to you with a price and available dates.</p>
+      <h3>Tips for a precise quote</h3>
+      <ul>
+        <li>Mention the condition of the home and the last time it was deep cleaned.</li>
+        <li>Tell us about pets, allergies or products to avoid.</li>
+        <li>Note access details such as gate codes and parking.</li>
+      </ul>
+      <p>Prefer to talk? Call <a href="tel:{{ BIZ.phone_href }}">{{ BIZ.phone }}</a>.</p>
+    </aside>
+  </div>
+</section>
+{% endblock %}

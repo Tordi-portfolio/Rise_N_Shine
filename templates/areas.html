@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Areas we serve | {{ BIZ.name }}{% endblock %}
+{% block desc %}House cleaning across Houston, TX, including Westchase, Memorial, Energy Corridor, Sharpstown and nearby communities.{% endblock %}
+{% block extra_css %}
+.pagehead{padding:4rem 0 1rem}
+.hoods{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:.7rem;list-style:none;padding:0;margin:1.5rem 0}
+.hoods li{background:var(--aqua);border-radius:12px;padding:.8rem 1rem;font-weight:500}
+.narrow{max-width:760px}
+{% endblock %}
+{% block content %}
+<section class="pagehead">
+  <div class="wrap narrow">
+    <h1 style="font-size:clamp(2.2rem,5vw,3.6rem)">Areas we serve in Houston</h1>
+    <p class="lead">We are based on Richmond Avenue in the Westchase area, which puts us close to many of Houston&rsquo;s busiest residential neighborhoods.</p>
+  </div>
+</section>
+<section style="padding-top:1rem">
+  <div class="wrap narrow">
+    <h2>Neighborhoods we commonly visit</h2>
+    <ul class="hoods">
+      <li>Westchase</li><li>Memorial</li><li>Energy Corridor</li><li>Sharpstown</li>
+      <li>Galleria and Uptown</li><li>Bellaire</li><li>Alief</li><li>Mid-Westheimer corridor</li>
+    </ul>
+    <p>This list is a guide, not a limit. If your home is nearby, send your ZIP code with a quote request and we&rsquo;ll confirm availability. Travel time and scheduling affect what we can offer in outlying areas, and we will always tell you plainly if your address is outside our usual range.</p>
+    <h2 style="margin-top:2rem">Why local matters</h2>
+    <p>Houston is a big city, and a cleaning team that works close to home is a team that can arrive on time, respond quickly if you need to reschedule, and take on last-minute requests. Being based in Westchase means short drives to many of our clients and fewer delays.</p>
+    <p>For landlords and rental hosts, local presence matters even more. Turnovers have to fit between checkout and check-in, and a nearby team can make that happen.</p>
+    <h2 style="margin-top:2rem">Not sure if we cover you?</h2>
+    <p>Call us at <a href="tel:{{ BIZ.phone_href }}">{{ BIZ.phone }}</a> or send a request through the form. We will reply and let you know.</p>
+    <p><a class="btn" href="{% url 'quote' %}">Check availability and get a quote</a></p>
+  </div>
+</section>
+{% endblock %}

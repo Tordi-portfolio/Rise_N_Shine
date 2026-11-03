@@ -1,0 +1,35 @@
+{% extends "staff/base.html" %}
+{% block title %}Staff login{% endblock %}
+{% block extra_css %}
+.login{min-height:100vh;display:grid;grid-template-columns:1fr 1fr}
+@media(max-width:820px){.login{grid-template-columns:1fr}.login .art{min-height:12rem}}
+.login .art{background:var(--deep);color:#fff;padding:3rem;display:flex;flex-direction:column;justify-content:flex-end;position:relative;overflow:hidden}
+.login .art::before{content:"";position:absolute;width:28rem;height:28rem;border-radius:50%;background:var(--sun);right:-8rem;top:-9rem}
+.login .art h2{font-size:2rem;position:relative;max-width:16ch}
+.login .art p{position:relative;color:#B9D3D9;max-width:36ch}
+.login .formside{display:flex;align-items:center;justify-content:center;padding:2rem}
+.login form{width:min(380px,100%)}
+.login form p{margin:0 0 1rem}
+.login .note{color:var(--ink2);font-size:.92rem}
+{% endblock %}
+{% block bare %}
+<div class="login">
+  <div class="art">
+    <h2>{{ BIZ.name }}</h2>
+    <p>Staff area. Sign in to view client quote requests and manage follow-ups.</p>
+  </div>
+  <div class="formside">
+    <form method="post" novalidate>
+      {% csrf_token %}
+      <h1>Staff login</h1>
+      <p class="note">This area is for authorized staff only.</p>
+      {% if form.non_field_errors %}{{ form.non_field_errors }}{% endif %}
+      <p><label for="{{ form.username.id_for_label }}">Username</label>{{ form.username }}</p>
+      <p><label for="{{ form.password.id_for_label }}">Password</label>{{ form.password }}</p>
+      <input type="hidden" name="next" value="{{ next }}">
+      <button class="btn teal" type="submit">Sign in</button>
+      <p style="margin-top:1.2rem"><a href="{% url 'home' %}">Back to the website</a></p>
+    </form>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}{{ BIZ.name }} | House cleaning in Houston, TX{% endblock %}</title>
+<meta name="description" content="{% block desc %}Reliable, detail-focused house cleaning in Houston, Texas. Standard, deep, move-in/move-out, short-term rental and post-renovation cleaning. Get a free quote.{% endblock %}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F3F9FA; --surface:#FFFFFF; --ink:#0A2A33; --ink2:#415F68; --deep:#06303A;
+  --teal:#0F8B8D; --teal-d:#0A6B6D; --sun:#FFB81F; --sun-l:#FFE3A3; --aqua:#D9F0EF; --line:#D2E5E9; --alert:#B42318;
+  --head:'Bricolage Grotesque',Georgia,serif; --body:'Instrument Sans',system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1.0625rem/1.7 var(--body)}
+h1,h2,h3{font-family:var(--head);line-height:1.08;letter-spacing:-.015em;margin:0 0 .5em}
+h1{font-size:clamp(2.5rem,6.2vw,4.6rem);font-weight:800}
+h2{font-size:clamp(1.8rem,3.6vw,2.6rem);font-weight:700}
+h3{font-size:1.3rem;font-weight:700}
+p{margin:0 0 1.1em;max-width:66ch}
+.lead{font-size:1.22rem;color:var(--ink2)}
+a{color:var(--teal-d)}
+:focus-visible{outline:3px solid var(--sun);outline-offset:3px}
+.wrap{width:min(1120px,92%);margin-inline:auto}
+section{padding:4.5rem 0}
+.tint{background:var(--aqua)}
+.dark{background:var(--deep);color:#DCEBEE}
+.dark h2,.dark h3{color:#fff}
+.dark p{color:#C3DADF}
+
+header.site{background:rgba(255,255,255,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
+header.site .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.8rem 0;flex-wrap:wrap}
+.brand{font:800 1.35rem var(--head);color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:.5rem}
+.brand i{width:1.9rem;height:1.9rem;border-radius:50%;background:var(--sun);display:inline-block;position:relative;overflow:hidden}
+.brand i::after{content:"";position:absolute;left:-10%;right:-10%;bottom:-35%;height:70%;background:var(--deep);border-radius:50% 50% 0 0}
+nav.main{display:flex;align-items:center;gap:1.1rem;flex-wrap:wrap}
+nav.main a{color:var(--ink);text-decoration:none;font-weight:500}
+nav.main a:hover{color:var(--teal)}
+nav.main a[aria-current="page"]{border-bottom:2px solid var(--sun)}
+.btn{display:inline-block;background:var(--sun);color:var(--ink)!important;font:600 1rem var(--body);padding:.85rem 1.5rem;border:0;border-radius:999px;text-decoration:none;cursor:pointer;transition:transform .15s,background .15s}
+.btn:hover{background:#FFA800;transform:translateY(-1px)}
+.btn.teal{background:var(--teal);color:#fff!important}.btn.teal:hover{background:var(--teal-d)}
+.btn.ghost{background:transparent;border:2px solid var(--ink)}.btn.ghost:hover{background:var(--ink);color:#fff!important}
+.btn.sm{padding:.55rem 1.1rem;font-size:.95rem}
+
+footer.site{background:var(--deep);color:#C3DADF;padding:3.5rem 0 2rem}
+footer.site a{color:var(--sun)}
+footer.site .cols{display:grid;grid-template-columns:2fr 1fr 1fr;gap:2rem}
+@media(max-width:760px){footer.site .cols{grid-template-columns:1fr}}
+footer.site h3{color:#fff;font-size:1.05rem}
+footer.site ul{list-style:none;margin:0;padding:0}
+footer.site li{margin-bottom:.3rem}
+footer.site .fine{border-top:1px solid #1B4955;margin-top:2rem;padding-top:1rem;font-size:.92rem;display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+
+.msgs{list-style:none;margin:1rem 0 0;padding:0}
+.msgs li{background:#E3F6E8;border:1px solid #9AD5AA;padding:.7rem 1rem;border-radius:10px}
+label{display:block;font-weight:600;margin-bottom:.25rem}
+input,select,textarea{width:100%;font:inherit;padding:.75rem .85rem;border:1.5px solid #9BBFC8;border-radius:10px;background:#fff;color:var(--ink)}
+.errorlist{color:var(--alert);list-style:none;padding:0;margin:.3rem 0 0;font-size:.95rem}
+.hp{position:absolute;left:-9999px;height:0;overflow:hidden}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+{% block extra_css %}{% endblock %}
+</style>
+{% block head_extra %}{% endblock %}
+</head>
+<body>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="{% url 'home' %}"><i aria-hidden="true"></i>{{ BIZ.short }}</a>
+    <nav class="main" aria-label="Main">
+      <a href="{% url 'services' %}" {% if request.resolver_match.url_name == 'services' %}aria-current="page"{% endif %}>Services</a>
+      <a href="{% url 'about' %}" {% if request.resolver_match.url_name == 'about' %}aria-current="page"{% endif %}>About</a>
+      <a href="{% url 'areas' %}" {% if request.resolver_match.url_name == 'areas' %}aria-current="page"{% endif %}>Areas</a>
+      <a href="{% url 'faq' %}" {% if request.resolver_match.url_name == 'faq' %}aria-current="page"{% endif %}>FAQ</a>
+      <a href="tel:{{ BIZ.phone_href }}">{{ BIZ.phone }}</a>
+      <a class="btn sm" href="{% url 'quote' %}">Get a free quote</a>
+    </nav>
+  </div>
+</header>
+{% if messages %}<div class="wrap"><ul class="msgs">{% for m in messages %}<li>{{ m }}</li>{% endfor %}</ul></div>{% endif %}
+<main>{% block content %}{% endblock %}</main>
+<footer class="site">
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <h3>{{ BIZ.name }}</h3>
+        <p>Professional house cleaning for homes across Houston, Texas. We show up on time, clean what we agreed to clean, and leave your home ready to enjoy.</p>
+        <p>{{ BIZ.address }}<br><a href="tel:{{ BIZ.phone_href }}">{{ BIZ.phone }}</a></p>
+      </div>
+      <div>
+        <h3>Explore</h3>
+        <ul>
+          <li><a href="{% url 'services' %}">Services</a></li>
+          <li><a href="{% url 'about' %}">About us</a></li>
+          <li><a href="{% url 'areas' %}">Areas we serve</a></li>
+          <li><a href="{% url 'faq' %}">Questions and answers</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Get started</h3>
+        <ul>
+          <li><a href="{% url 'quote' %}">Request a free quote</a></li>
+          <li><a href="tel:{{ BIZ.phone_href }}">Call us</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="fine">
+      <span>&copy; 2027 {{ BIZ.name }}. All rights reserved.</span>
+      <a href="{% url 'staff_login' %}">Staff login</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

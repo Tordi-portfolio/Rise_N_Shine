@@ -1,0 +1,54 @@
+{% extends "staff/base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block extra_css %}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1rem;margin:1.2rem 0 1.6rem}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:1.1rem 1.3rem}
+.stat b{display:block;font:800 2.2rem var(--head);line-height:1}
+.stat span{color:var(--ink2);font-size:.95rem}
+.stat.hot{background:var(--sun);border-color:var(--sun)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+@media(max-width:980px){.two{grid-template-columns:1fr}}
+.bar{display:grid;grid-template-columns:11rem 1fr 2.5rem;gap:.8rem;align-items:center;margin-bottom:.7rem;font-size:.95rem}
+.bar .track{background:#E3EEF1;border-radius:99px;height:.8rem;overflow:hidden}
+.bar .fill{height:100%;background:var(--teal);border-radius:99px}
+ul.list{list-style:none;margin:0;padding:0}
+ul.list li{display:flex;justify-content:space-between;gap:1rem;padding:.65rem 0;border-bottom:1px solid var(--line)}
+ul.list li:last-child{border:0}
+ul.list small{color:var(--ink2);display:block}
+{% endblock %}
+{% block content %}
+<h1>Dashboard</h1>
+<p>A quick look at the quote requests coming in from your website.</p>
+<div class="stats">
+  <div class="stat hot"><b>{{ new }}</b><span>New, awaiting reply</span></div>
+  <div class="stat"><b>{{ today }}</b><span>Received today</span></div>
+  <div class="stat"><b>{{ week }}</b><span>Last 7 days</span></div>
+  <div class="stat"><b>{{ booked }}</b><span>Booked</span></div>
+  <div class="stat"><b>{{ total }}</b><span>All responses</span></div>
+</div>
+<div class="two">
+  <div class="card">
+    <h2>Needs a reply</h2>
+    <ul class="list">
+      {% for r in needs_reply %}
+      <li><div><a href="{% url 'staff_response_detail' r.pk %}">{{ r.name }}</a><small>{{ r.phone }} &middot; {{ r.get_service_display }}</small></div><small>{{ r.created_at|date:"M j" }}</small></li>
+      {% empty %}<li>All caught up. No new requests waiting.</li>{% endfor %}
+    </ul>
+  </div>
+  <div class="card">
+    <h2>Requests by service</h2>
+    {% for s in service_rows %}
+    <div class="bar"><span>{{ s.label }}</span><div class="track"><div class="fill" style="width:{{ s.pct }}%"></div></div><span>{{ s.count }}</span></div>
+    {% endfor %}
+  </div>
+</div>
+<div class="card" style="margin-top:1.2rem">
+  <h2>Most recent</h2>
+  <ul class="list">
+    {% for r in recent %}
+    <li><div><a href="{% url 'staff_response_detail' r.pk %}">{{ r.name }}</a><small>{{ r.get_service_display }} &middot; {{ r.zip_code }}</small></div><div style="text-align:right"><span class="pill {{ r.status }}">{{ r.get_status_display }}</span><small>{{ r.created_at|date:"M j, g:i A" }}</small></div></li>
+    {% empty %}<li>No responses yet. They will appear here when clients use the quote form.</li>{% endfor %}
+  </ul>
+  <p style="margin:1rem 0 0"><a class="btn teal" href="{% url 'staff_responses' %}">View all responses</a></p>
+</div>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends "staff/base.html" %}
+{% block title %}Client responses{% endblock %}
+{% block extra_css %}
+.tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin:1rem 0}
+.tabs a{padding:.4rem .95rem;border-radius:999px;background:var(--surface);border:1px solid var(--line);text-decoration:none;color:var(--ink);font-weight:500}
+.tabs a.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.tools{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:1.2rem;align-items:center}
+.tools input[type=search]{max-width:380px}
+.scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--line)}
+th,td{text-align:left;padding:.75rem 1rem;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:#F2F9FB;font-weight:600;white-space:nowrap}
+.pager{margin-top:1rem;display:flex;gap:1rem;align-items:center}
+{% endblock %}
+{% block content %}
+<h1>Client responses</h1>
+<div class="tabs">
+  <a href="?" class="{% if not status %}on{% endif %}">All ({{ total }})</a>
+  {% for key, label, n in tabs %}<a href="?status={{ key }}" class="{% if status == key %}on{% endif %}">{{ label }} ({{ n }})</a>{% endfor %}
+</div>
+<form class="tools" method="get">
+  {% if status %}<input type="hidden" name="status" value="{{ status }}">{% endif %}
+  <input type="search" name="q" value="{{ q }}" placeholder="Search name, email, phone or ZIP" aria-label="Search responses">
+  <button class="btn teal" type="submit">Search</button>
+  <a class="btn" href="{% url 'staff_export' %}?{% if status %}status={{ status }}&{% endif %}{% if q %}q={{ q|urlencode }}{% endif %}">Export CSV</a>
+</form>
+<div class="scroll"><table>
+  <thead><tr><th>Received</th><th>Name</th><th>Contact</th><th>Request</th><th>Status</th><th></th></tr></thead>
+  <tbody>
+  {% for r in page %}
+    <tr>
+      <td>{{ r.created_at|date:"M j, Y" }}<br><small>{{ r.created_at|date:"g:i A" }}</small></td>
+      <td>{{ r.name }}</td>
+      <td>{{ r.phone }}<br><a href="mailto:{{ r.email }}">{{ r.email }}</a></td>
+      <td>{{ r.get_service_display }}<br><small>{{ r.get_bedrooms_display }}, {{ r.get_frequency_display }}, {{ r.zip_code }}</small></td>
+      <td><span class="pill {{ r.status }}">{{ r.get_status_display }}</span></td>
+      <td><a href="{% url 'staff_response_detail' r.pk %}">Open</a></td>
+    </tr>
+  {% empty %}<tr><td colspan="6">No responses match. New quote requests will appear here.</td></tr>{% endfor %}
+  </tbody>
+</table></div>
+{% if page.paginator.num_pages > 1 %}
+<div class="pager">
+  {% if page.has_previous %}<a href="?page={{ page.previous_page_number }}{% if status %}&status={{ status }}{% endif %}{% if q %}&q={{ q|urlencode }}{% endif %}">Previous</a>{% endif %}
+  <span>Page {{ page.number }} of {{ page.paginator.num_pages }}</span>
+  {% if page.has_next %}<a href="?page={{ page.next_page_number }}{% if status %}&status={{ status }}{% endif %}{% if q %}&q={{ q|urlencode }}{% endif %}">Next</a>{% endif %}
+</div>
+{% endif %}
+{% endblock %}

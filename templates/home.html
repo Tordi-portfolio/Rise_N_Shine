@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+{% block head_extra %}
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"LocalBusiness","name":"{{ BIZ.name|escapejs }}","telephone":"{{ BIZ.phone_href }}","address":{"@type":"PostalAddress","streetAddress":"{{ BIZ.street }}","addressLocality":"{{ BIZ.city }}","addressRegion":"{{ BIZ.state }}","postalCode":"{{ BIZ.zip }}","addressCountry":"US"}}
+</script>
+{% endblock %}
+{% block extra_css %}
+.hero{padding:4rem 0 5rem;background:radial-gradient(60rem 28rem at 85% -10%,#FFF0C7 0,transparent 60%),var(--bg)}
+.hero .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:2.5rem;align-items:center}
+@media(max-width:860px){.hero .wrap{grid-template-columns:1fr}}
+.hero .cta{display:flex;gap:.8rem;flex-wrap:wrap;margin:1.6rem 0 1.2rem}
+.hero .proof{font-weight:600;color:var(--ink2)}
+.art{width:100%;height:auto;max-width:460px;justify-self:center}
+.art .sun{animation:rise 1.4s cubic-bezier(.2,.8,.2,1) both}
+.art .spark{transform-origin:center;transform-box:fill-box;animation:twinkle 2.6s ease-in-out 1.2s 2 both}
+@keyframes rise{from{transform:translateY(95px)}to{transform:none}}
+@keyframes twinkle{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.35);opacity:.7}}
+.facts{background:var(--surface);border-block:1px solid var(--line);padding:1.5rem 0}
+.facts .wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.2rem}
+.facts p{margin:0;font-size:.98rem}
+.facts strong{display:block;font-family:var(--head);font-size:1.15rem}
+.bento{display:grid;grid-template-columns:repeat(6,1fr);gap:1rem;margin-top:2rem}
+.bento article{border-radius:22px;padding:1.7rem;grid-column:span 2}
+.bento article:nth-child(1){grid-column:span 3;background:var(--deep);color:#DCEBEE}
+.bento article:nth-child(1) h3{color:#fff}
+.bento article:nth-child(2){grid-column:span 3;background:var(--sun-l)}
+.bento article:nth-child(3){background:var(--aqua)}
+.bento article:nth-child(4){background:var(--surface);border:1px solid var(--line)}
+.bento article:nth-child(5){background:#FFF6DC}
+.bento p{margin:0;max-width:none}
+@media(max-width:860px){.bento{grid-template-columns:1fr}.bento article,.bento article:nth-child(n){grid-column:auto}}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1.5rem;margin-top:2rem;counter-reset:s;padding:0;list-style:none}
+.steps li{counter-increment:s;border-top:4px solid var(--sun);padding-top:1rem}
+.steps li::before{content:counter(s);font:800 2.2rem var(--head);color:var(--teal)}
+.cols2{display:grid;grid-template-columns:1fr 1fr;gap:3rem}
+@media(max-width:860px){.cols2{grid-template-columns:1fr;gap:1rem}}
+.cta-band{text-align:left}
+{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <h1>Clean homes,<br>done properly.</h1>
+      <p class="lead">{{ BIZ.name }} brings careful, dependable house cleaning to Houston families, busy professionals, landlords and hosts. Tell us what your home needs and we&rsquo;ll send you a clear quote.</p>
+      <div class="cta">
+        <a class="btn" href="{% url 'quote' %}">Get a free quote</a>
+        <a class="btn ghost" href="tel:{{ BIZ.phone_href }}">Call {{ BIZ.phone }}</a>
+      </div>
+      <p class="proof">Rated 4.9 out of 5 on Google by 53 clients</p>
+    </div>
+    <svg class="art" viewBox="0 0 400 360" role="img" aria-label="A sun rising behind a clean home">
+      <circle cx="200" cy="300" r="190" fill="#FFE3A3"/>
+      <g class="sun"><circle cx="200" cy="185" r="118" fill="#FFB81F"/></g>
+      <rect x="0" y="262" width="400" height="98" fill="#F3F9FA"/>
+      <path d="M92 262V188L200 112L308 188V262Z" fill="#06303A"/>
+      <path d="M72 196L200 102L328 196" fill="none" stroke="#06303A" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+      <rect x="176" y="204" width="48" height="58" rx="6" fill="#FFB81F"/>
+      <rect x="112" y="204" width="40" height="36" rx="5" fill="#D9F0EF"/>
+      <rect x="248" y="204" width="40" height="36" rx="5" fill="#D9F0EF"/>
+      <path class="spark" d="M326 90l7 20 20 7-20 7-7 20-7-20-20-7 20-7z" fill="#fff"/>
+      <path class="spark" d="M70 120l5 14 14 5-14 5-5 14-5-14-14-5 14-5z" fill="#fff"/>
+      <path class="spark" d="M290 238l4 11 11 4-11 4-4 11-4-11-11-4 11-4z" fill="#fff"/>
+    </svg>
+  </div>
+</section>
+
+<div class="facts"><div class="wrap">
+  <p><strong>Free, no-pressure quotes</strong>Tell us about your home and we reply with a clear price.</p>
+  <p><strong>Based on Richmond Ave</strong>Houston-based, serving the neighborhoods around us.</p>
+  <p><strong>Flexible scheduling</strong>One-time, weekly, every two weeks, or monthly visits.</p>
+  <p><strong>Your checklist, your way</strong>Tell us what matters most and we focus there.</p>
+</div></div>
+
+<section>
+  <div class="wrap">
+    <h2>Cleaning for the way your home is used</h2>
+    <p class="lead">A busy family home, a rental between guests and a freshly renovated house all need different things. Choose the service that fits, or tell us what you need and we&rsquo;ll shape it.</p>
+    <div class="bento">
+      <article><h3>Standard cleaning</h3><p>Regular upkeep for kitchens, bathrooms, floors and living spaces. The steady routine that keeps a home feeling fresh from one week to the next, without you giving up your weekends.</p></article>
+      <article><h3>Deep cleaning</h3><p>A slower, more detailed clean that reaches baseboards, door frames, cabinet fronts and built-up grime. A strong starting point for a new regular schedule or a seasonal reset.</p></article>
+      <article><h3>Move-in / move-out</h3><p>Empty homes cleaned thoroughly, inside cabinets and appliances included, so keys change hands with confidence.</p></article>
+      <article><h3>Short-term rental turnover</h3><p>Fast, consistent resets between guests, with attention to bathrooms, linens and the small details reviews mention.</p></article>
+      <article><h3>Post-renovation</h3><p>Dust, residue and leftover debris from construction work cleared away so you can finally enjoy the finished space.</p></article>
+    </div>
+    <p style="margin-top:1.5rem"><a href="{% url 'services' %}">Read the full details of every service</a></p>
+  </div>
+</section>
+
+<section class="tint">
+  <div class="wrap">
+    <h2>How it works</h2>
+    <p class="lead">Getting your home cleaned should be one of the easiest things on your to-do list. Here is the whole process.</p>
+    <ol class="steps">
+      <li><h3>Tell us about your home</h3><p>Fill in the short quote form with your address, home size, the service you want and any extras. It takes about two minutes.</p></li>
+      <li><h3>Receive your quote</h3><p>We review your request and contact you by phone or email with a clear price and available times. If something is unclear, we ask before we assume.</p></li>
+      <li><h3>Confirm your visit</h3><p>Pick a date that suits you. Tell us about access, parking, pets and anything you want us to treat with extra care.</p></li>
+      <li><h3>Come home to the result</h3><p>Our team cleans to the agreed checklist. If anything is missed, tell us and we&rsquo;ll make it right.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section>
+  <div class="wrap cols2">
+    <div>
+      <h2>What a visit looks like</h2>
+      <p>Every home is cleaned in a deliberate order: top to bottom, back to front, and dry work before wet work. Dust falls before we vacuum. Surfaces are wiped before floors are mopped. It is a simple discipline, and it is the difference between a home that looks clean for an hour and one that stays clean for days.</p>
+      <p>In the kitchen we work on counters, the sink, the stovetop, the outside of appliances and the surfaces your family touches most. In bathrooms we scrub and sanitize toilets, showers, tubs, sinks and mirrors, and we pay attention to grout lines and fixtures where buildup hides.</p>
+    </div>
+    <div>
+      <p>Living areas and bedrooms get dusted from high surfaces down, with floors vacuumed or mopped to suit the material. We respect your belongings: we move small items to clean beneath them and return them where they were.</p>
+      <p>Before we leave, we walk through the home against the agreed checklist, so you are not left guessing what was done. If you would like a specific task done differently, say so once and we&rsquo;ll note it for every future visit.</p>
+      <p>Tell us if you prefer fragrance-free products, if a family member has sensitivities, or if there are rooms we should skip. A good cleaning relationship is built on small, clear instructions.</p>
+    </div>
+  </div>
+</section>
+
+<section class="dark">
+  <div class="wrap cols2">
+    <div>
+      <h2>Why homeowners and hosts choose us</h2>
+      <p>People hire a cleaning company to get time back and to trust that their home is in careful hands. We try to earn both. We communicate clearly before the visit, arrive when we said we would, and keep our checklists specific instead of vague.</p>
+      <p>Our 4.9 average rating from 53 clients on Google reflects the part of the work we care about most: doing it consistently, visit after visit.</p>
+    </div>
+    <div>
+      <h3>What you can expect</h3>
+      <p><strong>Clear quotes.</strong> You know what is included before you book.</p>
+      <p><strong>Consistent results.</strong> A written checklist keeps every visit to the same standard.</p>
+      <p><strong>Respect for your space.</strong> We treat your home, your belongings and your time with care.</p>
+      <p><strong>Easy communication.</strong> Call or send a request any time. We want to hear what could be better.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Serving Houston, from Richmond Ave outwards</h2>
+    <p class="lead">We are based at {{ BIZ.address }} and take cleaning requests from across the city and nearby communities. See the <a href="{% url 'areas' %}">areas we serve</a>, or send your ZIP code with a quote request and we&rsquo;ll confirm.</p>
+  </div>
+</section>
+
+<section class="tint cta-band">
+  <div class="wrap">
+    <h2>Ready for a home that feels fresh again?</h2>
+    <p class="lead">Request your free quote today. Tell us what you need and we&rsquo;ll take it from there.</p>
+    <a class="btn teal" href="{% url 'quote' %}">Request your free quote</a>
+  </div>
+</section>
+{% endblock %}

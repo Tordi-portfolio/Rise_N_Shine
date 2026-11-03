@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}About us | {{ BIZ.name }}{% endblock %}
+{% block extra_css %}
+.pagehead{padding:4rem 0 1rem}
+.vals{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.2rem;margin-top:1.5rem}
+.vals div{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:1.5rem}
+.vals p{margin:0}
+.narrow{max-width:760px}
+{% endblock %}
+{% block content %}
+<section class="pagehead">
+  <div class="wrap narrow">
+    <h1 style="font-size:clamp(2.2rem,5vw,3.6rem)">A cleaning company built on showing up</h1>
+    <p class="lead">{{ BIZ.name }} is a Houston house cleaning company on Richmond Avenue. Our work is simple to describe and hard to do well: clean your home thoroughly, treat it with respect, and be easy to deal with.</p>
+  </div>
+</section>
+<section style="padding-top:1rem">
+  <div class="wrap narrow">
+    <h2>Our story</h2>
+    <p>Cleaning is personal work. People let us into the places where they sleep, eat and raise their families, so trust matters as much as technique. We started with a belief that a cleaning company should be judged on the same things as any good service: reliability, honesty and results you can see.</p>
+    <p>Over time, our clients have told us what matters most to them. They want a team that arrives when promised, does what the checklist says, and tells them plainly if something cannot be done. They want to stop worrying about their home&rsquo;s cleanliness, not take on a new thing to manage. We built our way of working around those requests.</p>
+    <p>Today we serve homeowners, renters, landlords and short-term rental hosts across Houston. Our 4.9 star rating from 53 clients on Google is the result we are proudest of, because it comes from the people who see our work up close.</p>
+
+    <h2 style="margin-top:2.5rem">What we believe</h2>
+    <div class="vals">
+      <div><h3>Reliability first</h3><p>A great clean is worth little if the team never shows up. We confirm every visit, communicate about any change early, and treat your appointment as a commitment.</p></div>
+      <div><h3>Details matter</h3><p>The difference between clean and cared-for is in the details: the baseboard, the shower track, the underside of the counter lip. We train and check against those details.</p></div>
+      <div><h3>Respect for your home</h3><p>We handle your belongings carefully, follow your instructions on rooms and products, and leave things where we found them.</p></div>
+      <div><h3>Honest communication</h3><p>If a job needs more time than quoted, we tell you before we start, not after. If we miss something, we fix it.</p></div>
+    </div>
+
+    <h2 style="margin-top:2.5rem">How we work with you</h2>
+    <p>Every client relationship begins with a conversation about what you want. We ask about your home, your priorities, your pets, your schedule and any products you prefer or want to avoid. We write these preferences down so they carry over to every future visit, and you never have to repeat yourself.</p>
+    <p>For recurring clients we aim to send the same people to your home, because familiarity speeds up the work and builds trust. Feedback is always welcome, by phone or with your next request. We would much rather hear about a small problem early than lose a client over a misunderstanding.</p>
+
+    <h2 style="margin-top:2.5rem">Visit us</h2>
+    <p>{{ BIZ.address }}<br>Phone: <a href="tel:{{ BIZ.phone_href }}">{{ BIZ.phone }}</a></p>
+    <p><a class="btn" href="{% url 'quote' %}">Get a free quote</a></p>
+  </div>
+</section>
+{% endblock %}

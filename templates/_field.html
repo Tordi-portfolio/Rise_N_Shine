@@ -1,0 +1,5 @@
+{% if f.field.widget.input_type == "checkbox" %}
+<div class="chk">{{ f }} <label for="{{ f.id_for_label }}">{{ f.label }}</label>{{ f.errors }}</div>
+{% else %}
+<p>{{ f.label_tag }}{{ f }}{{ f.errors }}</p>
+{% endif %}

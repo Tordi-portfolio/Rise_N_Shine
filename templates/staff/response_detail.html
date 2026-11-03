@@ -1,0 +1,44 @@
+{% extends "staff/base.html" %}
+{% block title %}{{ obj.name }}{% endblock %}
+{% block extra_css %}
+.grid{display:grid;grid-template-columns:1.3fr 1fr;gap:1.2rem;align-items:start}
+@media(max-width:980px){.grid{grid-template-columns:1fr}}
+dl{margin:0;display:grid;grid-template-columns:9rem 1fr;gap:.6rem 1rem}
+dt{font-weight:600;color:var(--ink2)}dd{margin:0}
+.tags{display:flex;gap:.4rem;flex-wrap:wrap}
+{% endblock %}
+{% block content %}
+<p><a href="{% url 'staff_responses' %}">&larr; All responses</a></p>
+<h1>{{ obj.name }} <span class="pill {{ obj.status }}" style="vertical-align:middle">{{ obj.get_status_display }}</span></h1>
+<div class="grid">
+  <div class="card">
+    <dl>
+      <dt>Received</dt><dd>{{ obj.created_at|date:"F j, Y, g:i A" }}</dd>
+      <dt>Phone</dt><dd><a href="tel:{{ obj.phone }}">{{ obj.phone }}</a></dd>
+      <dt>Email</dt><dd><a href="mailto:{{ obj.email }}">{{ obj.email }}</a></dd>
+      <dt>Address</dt><dd>{{ obj.address }}, {{ obj.zip_code }}</dd>
+      <dt>Service</dt><dd>{{ obj.get_service_display }}</dd>
+      <dt>Home size</dt><dd>{{ obj.get_bedrooms_display }}, {{ obj.get_bathrooms_display }}</dd>
+      <dt>Frequency</dt><dd>{{ obj.get_frequency_display }}</dd>
+      <dt>Preferred date</dt><dd>{{ obj.preferred_date|date:"F j, Y"|default:"Not specified" }} ({{ obj.get_preferred_time_display }})</dd>
+      <dt>Extras</dt><dd><div class="tags">{% for e in obj.extras %}<span class="pill">{{ e }}</span>{% empty %}None{% endfor %}</div></dd>
+      <dt>Message</dt><dd>{{ obj.message|linebreaksbr|default:"None" }}</dd>
+    </dl>
+  </div>
+  <div>
+    <form method="post" class="card">
+      {% csrf_token %}
+      <h2>Follow-up</h2>
+      <p>{{ form.status.label_tag }}{{ form.status }}</p>
+      <p>{{ form.staff_notes.label_tag }}{{ form.staff_notes }}</p>
+      <button class="btn teal" type="submit">Save changes</button>
+    </form>
+    <form method="post" action="{% url 'staff_response_delete' obj.pk %}" class="card" style="margin-top:1rem" onsubmit="return confirm('Delete this response permanently?')">
+      {% csrf_token %}
+      <h2>Delete</h2>
+      <p>Remove this response permanently, for example spam or a duplicate.</p>
+      <button class="btn danger" type="submit">Delete response</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

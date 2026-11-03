@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Frequently asked questions | {{ BIZ.name }}{% endblock %}
+{% block extra_css %}
+.pagehead{padding:4rem 0 1rem}
+.narrow{max-width:800px}
+details{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:1rem 1.3rem;margin-bottom:.8rem}
+summary{cursor:pointer;font:700 1.1rem var(--head);list-style:none;display:flex;justify-content:space-between;gap:1rem}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-size:1.4rem;line-height:1;color:var(--teal)}
+details[open] summary::after{content:"\2212"}
+details p{margin:.8rem 0 0}
+{% endblock %}
+{% block content %}
+<section class="pagehead">
+  <div class="wrap narrow">
+    <h1 style="font-size:clamp(2.2rem,5vw,3.6rem)">Questions and answers</h1>
+    <p class="lead">Straight answers to the things clients ask most. If yours is not here, call us or send a quote request and ask.</p>
+  </div>
+</section>
+<section style="padding-top:1rem">
+  <div class="wrap narrow">
+    <details open><summary>How does pricing work?</summary><p>We price by your home&rsquo;s size and condition, the service you choose, how often you want visits, and any extras. After you send a quote request we reply with a clear price. Quotes are free and carry no obligation.</p></details>
+    <details><summary>Do I need to be home during the cleaning?</summary><p>No. Many clients are out during the visit. We will agree on how we get in, such as a key, a door code or a lockbox, and we handle that information carefully. If you prefer to be home, that is fine too.</p></details>
+    <details><summary>Do I need to supply cleaning products and equipment?</summary><p>No. We bring what we need for the agreed service. If you have a product you prefer we use, or one we should avoid, tell us when you book and we will note it.</p></details>
+    <details><summary>What is the difference between standard and deep cleaning?</summary><p>Standard cleaning maintains a home that is already in good order: surfaces, bathrooms, kitchen and floors. Deep cleaning adds detail work such as baseboards, door frames, cabinet fronts, window tracks and heavier buildup. A deep clean is a common first visit before moving to a regular schedule.</p></details>
+    <details><summary>How often should I schedule a cleaning?</summary><p>That depends on your household. Busy families and homes with pets often choose weekly or every-two-weeks visits. Single-person households and smaller homes often choose monthly. We can suggest a schedule when we talk about your home.</p></details>
+    <details><summary>Can I choose the same cleaners each time?</summary><p>For recurring clients we aim to send the same people to your home whenever we can. Familiarity helps with speed, consistency and trust.</p></details>
+    <details><summary>What if I am not happy with something?</summary><p>Tell us as soon as you notice, by phone or by sending a message. We want to hear it, and we will work with you to put it right.</p></details>
+    <details><summary>Do you clean homes with pets?</summary><p>Yes. Let us know about any pets on your quote request so we can plan for extra hair and take care around them. If a pet is nervous around visitors, tell us how you would like us to handle that.</p></details>
+    <details><summary>Can you clean my short-term rental between guests?</summary><p>Yes. Turnover cleaning is one of our services. Share your checkout and check-in times, your linen process and your priorities, and we will build a checklist around them.</p></details>
+    <details><summary>What should I do before the cleaners arrive?</summary><p>Tidy away personal items you would not want moved, such as papers, valuables and clutter on surfaces, so we can spend our time cleaning. Let us know about anything fragile or off-limits.</p></details>
+    <details><summary>How do I reschedule or cancel?</summary><p>Call us as early as you can if your plans change. The more notice we have, the easier it is to find a new time that suits you.</p></details>
+    <details><summary>What areas do you serve?</summary><p>We are based in Houston on Richmond Avenue and serve many surrounding neighborhoods. See our <a href="{% url 'areas' %}">areas page</a> or send your ZIP code with a quote request.</p></details>
+    <p style="margin-top:2rem"><a class="btn" href="{% url 'quote' %}">Get a free quote</a></p>
+  </div>
+</section>
+{% endblock %}

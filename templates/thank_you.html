@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Request received | {{ BIZ.name }}{% endblock %}
+{% block content %}
+<section>
+  <div class="wrap" style="max-width:760px">
+    <h1 style="font-size:clamp(2.2rem,5vw,3.4rem)">Thank you, we have your request</h1>
+    <p class="lead">Your quote request is with our team. We will get back to you by phone or email with a clear price and available dates.</p>
+    <p>If your plans are urgent, call us on <a href="tel:{{ BIZ.phone_href }}">{{ BIZ.phone }}</a> and mention that you sent a request. In the meantime, you may want to read about <a href="{% url 'services' %}">what each service includes</a> or browse our <a href="{% url 'faq' %}">frequently asked questions</a>.</p>
+    <p><a class="btn" href="{% url 'home' %}">Back to home</a></p>
+  </div>
+</section>
+{% endblock %}
